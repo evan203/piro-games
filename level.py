@@ -12,6 +12,8 @@ class Level:
 		levelarr = loadLevelToArr("/levels/level1.png")
 		print(levelarr)
 
+	def returnlevelarr():
+		return levelarr
 	def isHole(x, y):
 		return levelarr[y*8+x] == hole
 	def isWall(x, y):
@@ -20,7 +22,7 @@ class Level:
 		return levelarr[y*8+x] == goal
 	def spawnCoords():
 		for i in range(64):
-			if levelarr[i] == [0,0,255]:
+			if color == [0,0,255]:
 				return [i%8, int(i/8)]
 
 	def nextLevel():
