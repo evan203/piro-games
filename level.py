@@ -6,10 +6,10 @@ class Level:
 	wall = [0,0,0]
 	goal = [255,0,255]
 	levelarr = []
-	sense = SenseHat()
 
-	def __init__():
-		levelarr = loadLevelToArr("/levels/level1.png")
+	def __init__(self, sense):
+		self.sense = sense
+		levelarr = self.loadLevelToArr('levels/level1.png')
 		print(levelarr)
 
 	def returnlevelarr():
@@ -27,10 +27,10 @@ class Level:
 
 	def nextLevel():
 		levelnum += 1
-		levelarr = loadLevelToArr("/levels/level"+level+".png")
+		levelarr = sense.loadLevelToArr("/levels/level"+level+".png")
 	def restart():
 		levelnum = 1
-		levelarr = loadLevelToArr("/levels/level1.png")
+		levelarr = sense.loadLevelToArr("/levels/level1.png")
 
-	def loadLevelToArr(file):
-		return sense.load_image(file)
+	def loadLevelToArr(file_path, bla):
+		return sense.load_image(file_path)
