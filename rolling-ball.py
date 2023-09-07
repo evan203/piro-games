@@ -1,4 +1,5 @@
 from sense_hat import SenseHat
+from level import *
 import time
 import math
 import level
@@ -10,6 +11,8 @@ directions = ["pitch", "roll"]
 ball_pos = [3, 3] #init position to center (x,y) 
 ball_v = [0, 0] #init velocity to 0 (x,y)
 
+
+level = Level(sense)
 
 sense.clear()
 
@@ -47,7 +50,8 @@ def get_normal_orientation():
 	return o
 
 def render(ball_pos):
-	arr = [white] * 64 # make array of 64 zeros
+	arr = level.leveltoarr() 
+	#arr = [white] * 64 # make array of 64 zeros
 	for i in range(8): # row
 		for j in range (8): # column
 			if ball_pos[0] == i and ball_pos[1] == j:
