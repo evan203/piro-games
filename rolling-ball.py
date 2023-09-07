@@ -1,5 +1,6 @@
 from sense_hat import SenseHat
 import time
+import level
 import math
 sense = SenseHat()
 red = [255, 0, 0]  # Red
@@ -32,12 +33,13 @@ def get_normal_orientation():
 	o["pitch"] *= -1
 	o["roll"] -= avg_roll
 	return o
-
+level_obj = level.Level(sense)
 def render(ball_pos):
 	int_ball_pos = [0] * 2
 	for i in range (2): 
 		int_ball_pos[i] = int(ball_pos[i])
-	arr = [white] * 64 # make array of 64 zeros
+	arr = level_obj.returnlevelarr()
+
 	for i in range(8): # row
 		for j in range (8): # column
 			if int_ball_pos[0] == i and int_ball_pos[1] == j:
