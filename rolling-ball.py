@@ -39,6 +39,7 @@ def render(ball_pos):
 	for i in range (2): 
 		int_ball_pos[i] = int(ball_pos[i])
 	arr = level_obj.returnlevelarr()
+
 	for i in range(8): # row
 		for j in range (8): # column
 			if int_ball_pos[0] == i and int_ball_pos[1] == j:
