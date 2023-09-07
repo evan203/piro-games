@@ -12,7 +12,6 @@ ball_v = [0, 0] #init velocity to 0 (x,y)
 
 sense.clear()
 
-gravity = 0.5
 def normalize_orientation():
 	pitch = 0
 	roll = 0
@@ -35,25 +34,34 @@ def get_normal_orientation():
 	return o
 
 def render(ball_pos):
+	int_ball_pos = [0] * 2
+	for i in range (2): 
+		int_ball_pos[i] = int(ball_pos[i])
 	arr = [white] * 64 # make array of 64 zeros
 	for i in range(8): # row
 		for j in range (8): # column
-			if ball_pos[0] == i and ball_pos[1] == j:
+			if int_ball_pos[0] == i and int_ball_pos[1] == j:
 				arr[i+ 8*j] = red
 	sense.set_pixels(arr)
 
+gravity = 0.05
+terminal_v = 1
 
 while True:
 	o = get_normal_orientation()
 	for i in range(2):
 		ball_v[i] += math.sin(math.radians(o[directions[i]]))*gravity
-		print(f"{math.sin(math.radians(o[directions[i]]))*gravity}")
-		ball_pos[i] += int(ball_v[i])
+		if ball_v[i] > terminal_v:
+			ball_v[i] = terminal_v
+		elif ball_v[i] < -1 * terminal_v:
+			ball_v[i] = -1 * terminal_v
+		ball_pos[i] += ball_v[i]
 		if ball_pos[i] > 7 :
 			ball_v[i] = 0
 			ball_pos[i] = 7
 		elif ball_pos[i] < 0:
 			ball_v[i] = 0
 			ball_pos[i] = 0
-	print(f"{ball_v}")
+	#print(f"{ball_v}")
 	render(ball_pos)
+	time.sleep(0.01)
