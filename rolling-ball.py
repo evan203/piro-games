@@ -1,6 +1,7 @@
 from sense_hat import SenseHat
 import time
 import math
+import level
 sense = SenseHat()
 red = [255, 0, 0]  # Red
 white = [255, 255, 255]  # White
@@ -11,6 +12,17 @@ ball_v = [0, 0] #init velocity to 0 (x,y)
 
 
 sense.clear()
+
+thelevel = level.Level(sense)
+print(thelevel.returnlevelarr())
+print(thelevel.isHole(0,0))
+print(thelevel.spawnCoords())
+thelevel.nextLevel()
+print(thelevel.spawnCoords())
+print(thelevel.returnlevelarr())
+thelevel.restart()
+print(thelevel.spawnCoords())
+print(thelevel.returnlevelarr())
 
 gravity = 0.5
 def normalize_orientation():
@@ -47,7 +59,6 @@ while True:
 	o = get_normal_orientation()
 	for i in range(2):
 		ball_v[i] += math.sin(math.radians(o[directions[i]]))*gravity
-		print(f"{math.sin(math.radians(o[directions[i]]))*gravity}")
 		ball_pos[i] += int(ball_v[i])
 		if ball_pos[i] > 7 :
 			ball_v[i] = 0
@@ -55,5 +66,4 @@ while True:
 		elif ball_pos[i] < 0:
 			ball_v[i] = 0
 			ball_pos[i] = 0
-	print(f"{ball_v}")
 	render(ball_pos)
