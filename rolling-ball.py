@@ -1,5 +1,6 @@
 from sense_hat import SenseHat
 import time
+import copy
 import level
 import math
 sense = SenseHat()
@@ -38,7 +39,7 @@ def render(ball_pos):
 	int_ball_pos = [0] * 2
 	for i in range (2): 
 		int_ball_pos[i] = int(ball_pos[i])
-	arr = level_obj.returnlevelarr()
+	arr = copy.deepcopy(level_obj.returnlevelarr())
 
 	for i in range(8): # row
 		for j in range (8): # column
