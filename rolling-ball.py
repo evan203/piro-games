@@ -8,10 +8,6 @@ red = [255, 0, 0]  # Red
 white = [255, 255, 255]  # White
 directions = ["pitch", "roll"]
 
-ball_pos = [3, 3] #init position to center (x,y) 
-ball_v = [0, 0] #init velocity to 0 (x,y)
-
-
 sense.clear()
 
 def normalize_orientation():
@@ -36,7 +32,8 @@ def get_normal_orientation():
 	return o
 
 level_obj = level.Level(sense)
-
+ball_pos = level_obj.spawnCoords() #init position to center (x,y) 
+ball_v = [0, 0] #init velocity to 0 (x,y)
 def render(ball_pos):
 	int_ball_pos = [0] * 2
 	for i in range (2): 
@@ -51,7 +48,6 @@ def render(ball_pos):
 
 gravity = 0.05
 terminal_v = 1
-
 while True:
 	o = get_normal_orientation()
 	for i in range(2):
@@ -101,4 +97,9 @@ while True:
 			# go in x
 			ball_pos_x += ball_v[0]
 	render(ball_pos)
+	if level_obj.isGoal(future_coords[0], future_coords[1]):
+		level_obj.nextLevel()
+		for i in range (2):
+			ball_v[i] = 0
+			ball_pos = level_obj.spawnCoords() 
 	time.sleep(0.01)
