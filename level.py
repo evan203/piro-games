@@ -13,7 +13,7 @@ class Level:
 	def isHole(self, x, y):
 		return self.levelarr[y*8+x] == self.hole
 	def isWall(self, x, y):
-		return self.levelarr[y*8+x] == self.wall
+		return y < 8 and y > 0 and x <8 and x>0 and self.levelarr[y*8+x] == self.wall
 	def isGoal(self, x, y):
 		return self.levelarr[y*8+x] == self.goal
 	def spawnCoords(self):

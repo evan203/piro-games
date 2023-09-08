@@ -34,7 +34,9 @@ def get_normal_orientation():
 	o["pitch"] *= -1
 	o["roll"] -= avg_roll
 	return o
+
 level_obj = level.Level(sense)
+
 def render(ball_pos):
 	int_ball_pos = [0] * 2
 	for i in range (2): 
@@ -58,7 +60,8 @@ while True:
 			ball_v[i] = terminal_v
 		elif ball_v[i] < -1 * terminal_v:
 			ball_v[i] = -1 * terminal_v
-		ball_pos[i] += ball_v[i]
+		
+		#ball_pos[i] += ball_v[i]
 		if ball_pos[i] > 7 :
 			ball_v[i] = 0
 			ball_pos[i] = 7
@@ -66,5 +69,36 @@ while True:
 			ball_v[i] = 0
 			ball_pos[i] = 0
 	#print(f"{ball_v}")
+	future_coords = [ball_pos[0]+ball_v[0], ball_pos[1]+ball_v[1]]
+	for i in range (2):
+		future_coords[i] = int(future_coords[i])
+	if level_obj.isWall(future_coords[0], future_coords[1]):
+		for i in range(2):
+			ball_v[i] = 0
+	else:
+		for i in range(2):
+			ball_pos[i] += ball_v[i]
+	# if future_coords goes diag
+	j = 0
+	for i in range (2):
+		if future_coords[i] - int(ball_pos[i]) > 1:
+			j += 1
+	if j > 1:# if it's diagonal
+		wall_x_coord= [future_coord[0], int(ball_pos[1])]
+		wall_y_coord= [int(ball_pos[0]), future_coord[1]]
+		x_is_wall = level_obj.isWall(wall_x_coord)
+		y_is_wall = level_obj.isWall(wall_y_code)
+		# if both are walls
+		if x_is_wall and y_is_wall:
+			ball_v[0] = 0
+			ball_v[1] = 0
+		# if x is a wall
+		elif x_is_wall:
+			# go in y
+			ball_pos_y += ball_v[1]
+		# if y is a wall
+		elif y_is_wall:
+			# go in x
+			ball_pos_x += ball_v[0]
 	render(ball_pos)
 	time.sleep(0.01)
